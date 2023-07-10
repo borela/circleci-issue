@@ -7,7 +7,6 @@ parameters:
 
   foo:
     type: integer
-    default: 0
 
   bar:
     type: integer
