@@ -1,0 +1,38 @@
+version: 2.1
+
+setup: true
+
+parameters:
+  foo:
+    type: integer
+    default: 0
+
+  bar:
+    type: integer
+    default: 0
+
+  baz:
+    type: integer
+    default: 0
+
+  qux:
+    type: integer
+    default: 0
+
+jobs:
+  print-parameters:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - run:
+          name: Print parameters
+          command: |
+              echo "foo: << pipeline.parameters.foo >>"
+              echo "bar: << pipeline.parameters.bar >>"
+              echo "baz: << pipeline.parameters.baz >>"
+              echo "qux: << pipeline.parameters.qux >>"
+
+workflows:
+  main:
+    jobs:
+      - print-parameters
