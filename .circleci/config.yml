@@ -7,16 +7,18 @@ orbs:
 
 parameters:
   some_unrelated_parameter:
-    type: boolean
-    default: false
+    type: string
+    default: 'using default'
 
 jobs:
   run-generated-config:
     executor: continuation/default
+    resource_class: small
     steps:
-      - continuation/run:
-          configuration-path: .circleci/generated-config.yml
-          pipeline-parameters-json-file: .circleci/generated-config-parameters.json
+      - checkout
+      - continuation/continue:
+          configuration_path: .circleci/generated-config.yml
+          parameters: .circleci/generated-config-parameters.json
 
 workflows:
   setup:

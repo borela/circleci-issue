@@ -1,8 +1,10 @@
 version: 2.1
 
-setup: true
-
 parameters:
+  some_unrelated_parameter:
+    type: string
+    default: 'using default'
+
   foo:
     type: integer
     default: 0
@@ -21,16 +23,18 @@ parameters:
 
 jobs:
   print-parameters:
-    machine:
-      image: ubuntu-1604:201903-01
+    docker:
+      - image: cimg/ruby:3.2.2
+    resource_class: small
     steps:
       - run:
           name: Print parameters
           command: |
-              echo "foo: << pipeline.parameters.foo >>"
-              echo "bar: << pipeline.parameters.bar >>"
-              echo "baz: << pipeline.parameters.baz >>"
-              echo "qux: << pipeline.parameters.qux >>"
+            echo "some_unrelated_parameter: << pipeline.parameters.some_unrelated_parameter >>"
+            echo "foo: << pipeline.parameters.foo >>"
+            echo "bar: << pipeline.parameters.bar >>"
+            echo "baz: << pipeline.parameters.baz >>"
+            echo "qux: << pipeline.parameters.qux >>"
 
 workflows:
   main:
